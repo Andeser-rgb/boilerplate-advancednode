@@ -73,7 +73,7 @@ myDB(async (client) => {
     }));
 
     app.get("/profile", ensureAuthenticated, (req, res) => {
-        res.render(process.cwd() + "/views/pug/profile", {
+        res.render(process.cwd() + "/views/pug/profile.pug", {
             username: req.user.username,
         });
     });
