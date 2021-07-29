@@ -70,10 +70,12 @@ myDB(async (client) => {
 
     app.post("/login", passport.authenticate("local", {
         failureRedirect: "/"
-    }));
+    }), (req, res, next) => {
+        res.redirect('/profile');
+    });
 
     app.get("/profile", ensureAuthenticated, (req, res) => {
-        res.render(process.cwd() + "/views/pug/profile.pug", {
+        res.render(process.cwd() + "/views/pug/profile", {
             username: req.user.username,
         });
     });
