@@ -32,11 +32,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res) => {
-    res.status(404)
-        .type('text')
-        .send('Not Found');
-});
 
 myDB(async (client) => {
     const myDataBase = await client.db("database").collection("users");
@@ -84,6 +79,11 @@ myDB(async (client) => {
     app.get('/logout', (req, res) => {
         req.logout();
         res.redirect('/');
+    });
+    app.use((req, res) => {
+        res.status(404)
+            .type('text')
+            .send('Not Found');
     });
 
 
