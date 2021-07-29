@@ -99,9 +99,9 @@ myDB(async (client) => {
         },
         passport.authenticate('local', {
             failureRedirect: '/'
-        }, (req, res, next) => {
+        }), (req, res, next) => {
             res.redirect('/profile');
-        })
+        }
     );
 
     app.use((req, res) => {
