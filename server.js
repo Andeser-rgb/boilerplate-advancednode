@@ -85,7 +85,7 @@ myDB(async (client) => {
         res.redirect('/');
     });
 
-    app.route('register')
+    app.route('/register')
         .post((req, res, next) => {
                 myDataBase.findOne({
                     username: req.body.username
