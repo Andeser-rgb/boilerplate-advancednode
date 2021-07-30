@@ -10,10 +10,11 @@ const LocalStrategy = require("passport-local");
 const bcrypt = require('bcrypt');
 const routes = require('./routes.js');
 const auth = require('./auth.js');
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
 
 const app = express();
+
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 fccTesting(app); //For FCC testing purposes
 app.set("view engine", "pug");
