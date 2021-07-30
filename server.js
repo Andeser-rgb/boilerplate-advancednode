@@ -75,14 +75,21 @@ myDB(async (client) => {
     io.on('connection', socket => {
         console.log('user ' + socket.request.user.name + 'connected');
         ++currentUsers;
-        io.emit('user count', currentUsers);
-        console.log('A user has connected');
+        io.emit('user', {
+            name: socket.request.user.name,
+            currentUsers,
+            connected: true
+        });
 
 
         socket.on('disconnect', () => {
             console.log('A user has disconnected');
             --currentUsers;
-            io.emit('user count', currentUsers);
+            io.emit('user', {
+                name: socket.request.user.name,
+                currentUsers,
+                connected: false
+            });
         });
     });
 
@@ -101,13 +108,13 @@ http.listen(PORT, () => {
     console.log("Listening on port " + PORT);
 });
 
-const onAuthorizeSuccess = (data, accept) => {
+function onAuthorizeSuccess(data, accept) {
     console.log('successful connection to socket.io');
 
     accept(null, true);
 };
 
-const onAuthorizeFail = (data, message, error, accept) => {
+function onAuthorizeFail(data, message, error, accept) {
     if(error) throw new Error(message);
     console.log('failed connection to socket.io: ', message);
     accept(null, false);

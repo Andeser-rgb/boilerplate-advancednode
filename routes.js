@@ -59,7 +59,7 @@ module.exports = function(app, myDataBase) {
         .get(passport.authenticate('github', {
             failureRedirect: '/'
         }), (req, res) => {
-            req.session.user._id = req.user.id;
+            req.session.user_id = req.user.id;
             res.redirect('/chat');
         });
     app.route('/chat')
