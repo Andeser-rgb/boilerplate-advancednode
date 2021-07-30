@@ -8,15 +8,13 @@ $(document).ready(function() {
         $('#messages').append($('<li>').html('<b>' + message + '</b>'));
         console.log(data);
     });
+    socket.on('chat message', data => {
+        $('#messages').append($('<li>').html('<b>' + data.name + ": " + '</b>' + data.message));
+        console.log(data);
+    });
     $('form').submit(function() {
         var messageToSend = $('#m').val();
         socket.emit('chat message', messageToSend);
-        socket.on('chat message', data => {
-            let message = data.name + ": " + data.message;
-            $('#messages').append($('<li>').html('<b>' + message + '</b>'));
-            console.log(data);
-        });
-
         $('#m').val('');
         return false; // prevent form submit from refreshing page
     });
