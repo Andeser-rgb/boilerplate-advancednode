@@ -4,13 +4,18 @@ $(document).ready(function() {
     socket.on('user', data => {
         $('#num-users').text(data.currentUsers + ' users online');
         let message = data.name +
-            (data.connected ? 'has joined the chat.' : ' has left the chat.');
+            (data.connected ? ' has joined the chat.' : ' has left the chat.');
         $('#messages').append($('<li>').html('<b>' + message + '</b>'));
         console.log(data);
     });
     $('form').submit(function() {
         var messageToSend = $('#m').val();
-
+        socket.emit('chat message', messageToSend);
+        socket.on('chat message', data => {
+            let message = data.name + ": " + data.message;
+            $('#messages').append($('<li>').html('<b>' + message + '</b>'));
+            console.log(data);
+        });
 
         $('#m').val('');
         return false; // prevent form submit from refreshing page
